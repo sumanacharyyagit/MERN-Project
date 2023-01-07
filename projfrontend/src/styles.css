@@ -5,3 +5,10 @@
 body {
   background: #3a3f44
 }
+
+footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
