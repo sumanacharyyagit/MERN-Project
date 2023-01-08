@@ -78,9 +78,9 @@ const AddCategory = () => {
 
   return (
     <Base title="Create a new Category" description="Create/Add a New Category of T-Shirt" className="container bg-info p-5">
-        <div className="row bg-white rounded">
+            {goBack()}
+        <div className="row bg-dark rounded">
             <div className="col-md-8 offset-md-2">
-                {goBack()}
                 {SuccessMessage()}
                 {WarningMessage()}
                 {MyCategoryForm()}

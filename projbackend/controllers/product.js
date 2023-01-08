@@ -33,7 +33,8 @@ exports.createProduct = (req, res) => {
         // Destructure the Fields
         const {name, description, price, category, stock} = fields;
         if(!name || !description || !price || !category || !stock){
-            return res.status(200).json({
+            // console.log(fields);
+            return res.status(400).json({
                 error: "Please fill-up All Fields",
             });
         }
@@ -51,6 +52,8 @@ exports.createProduct = (req, res) => {
             product.photo.data = fs.readFileSync(file.photo.filepath);
             product.photo.contentType = file.photo.mimetype;
         }
+
+
 
         // Save to the DB
         product.save((err, product) => {

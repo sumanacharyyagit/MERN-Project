@@ -8,6 +8,10 @@ import AdminRoute from './auth/helper/AdminRoute';
 import AdminDashBoard from './user/AdminDashBoard';
 import UserDashBoard from './user/UserDashBoard';
 import AddCategory from './admin/AddCategory';
+import ManageCategories from './admin/ManageCategories';
+import AddProduct from './admin/AddProduct';
+import ManageProducts from './admin/ManageProducts';
+import Orders from './admin/Orders';
 
 const AppRoutes = () => {
   return (
@@ -24,6 +28,18 @@ const AppRoutes = () => {
             </Route>
             <Route path="/" exact element={<AdminRoute />}>
               <Route path="/admin/create/category" exact element={<AddCategory />} />
+            </Route>
+            <Route path="/" exact element={<AdminRoute />}>
+              <Route path="/admin/categories" exact element={<ManageCategories />} />
+            </Route>
+            <Route path="/" exact element={<AdminRoute />}>
+              <Route path="/admin/create/product" exact element={<AddProduct />} />
+            </Route>
+            <Route path="/" exact element={<AdminRoute />}>
+              <Route path="/admin/products" exact element={<ManageProducts />} />
+            </Route>
+            <Route path="/" exact element={<AdminRoute />}>
+              <Route path="/admin/orders" exact element={<Orders />} />
             </Route>
         </Routes>
     </Router>
