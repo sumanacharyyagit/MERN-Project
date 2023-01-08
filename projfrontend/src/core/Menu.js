@@ -1,10 +1,14 @@
 import React from 'react';
-import { NavLink, Outlet} from 'react-router-dom';
+import { NavLink, useNavigate, Outlet} from 'react-router-dom';
+import { isAuthenticated, signOut } from '../auth/helper';
 
 const currentTab = ({ isActive }) => ({ 
     color: isActive ? '#2ecc72' : 'white' })
 
 const Menu = () => {
+    const navigate = useNavigate();
+    const isAuthent = isAuthenticated();
+
   return (
     <div>
         <ul className="nav nav-tabs bg-dark">
@@ -18,31 +22,37 @@ const Menu = () => {
                     Cart
                 </NavLink>
             </li>
-            <li className="nav-item">
+            {isAuthent && isAuthent.user.role === 0 && (<li className="nav-item">
                 <NavLink className="nav-link" to="/user/dashboard" style={currentTab}>
-                    Dashboard
+                    U. Dashboard
                 </NavLink>
-            </li>
-            <li className="nav-item">
+            </li>)}
+            {isAuthent && isAuthent.user.role === 1 && (<li className="nav-item">
                 <NavLink className="nav-link" to="/admin/dashboard" style={currentTab}>
                     A. Dashboard
                 </NavLink>
-            </li>
-            <li className="nav-item">
-                <NavLink className="nav-link" to="/signup" style={currentTab}>
-                    SignUp
-                </NavLink>
-            </li>
-            <li className="nav-item">
-                <NavLink className="nav-link" to="/signin" style={currentTab}>
-                    SignIn
-                </NavLink>
-            </li>
-            <li className="nav-item">
-                <NavLink className="nav-link" to="/signout" style={currentTab}>
-                    SignOut
-                </NavLink>
-            </li>
+            </li>)}
+            {!isAuthent && (
+                <>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" to="/signup" style={currentTab}>
+                            SignUp
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" to="/signin" style={currentTab}>
+                            SignIn
+                        </NavLink>
+                    </li>
+                </>
+            )}
+            {isAuthent && (
+                <li className="nav-item">
+                    <span className="nav-link text-warning" onClick={() => signOut(() => navigate("/"))}>
+                        SignOut
+                    </span>
+                </li>
+            )}
         </ul>
         <Outlet />
     </div>

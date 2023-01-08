@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import Base from '../core/Base';
-import {NavLink, Link, Navigate } from 'react-router-dom';
+import {NavLink, Link, Navigate, useNavigate } from 'react-router-dom';
 
 import { signIn, authenticate, isAuthenticated } from '../auth/helper';
 
 const Signin = () => {
 
     const [values, setValues] = useState({
-        email: "",
-        password: "",
+        email: "sssuuummmaaannn@dev.in",
+        password: "sssuuummmaaannn",
         error: "",
         loading: false,
         didRedirect: false,  //<Navigate to="/" replace />
     });
+
+    const navigate = useNavigate();
 
     const {email, password, error, loading, didRedirect} = values;
 
@@ -47,17 +49,17 @@ const Signin = () => {
     };
 
     const performRedirect = () => {
-        // TODO: NEED TO REDIRECT ROUTE HERE
         if(didRedirect){
             if(user && user.role === 1){
-                return <p>Redirect to Admin Dashboard</p>;
+                return <Navigate to="/admin/dashboard" replace />;
             }
             else{
-                return <p>Redirect to User Dashboard</p>
+                return <Navigate to="/user/dashboard" replace />;
             }
         }
         if(isAuthenticated()){
-            return <Navigate to="/" replace />
+            // return navigate("/");
+            return <Navigate to="/" replace />;
         }
     }
 
@@ -111,8 +113,8 @@ const Signin = () => {
     <Base title="SignIn Page" description="A Page for User to SignIn!">
         {LoadingMessage()}
         {ErrorMessage()}
-        {SignInForm()}
         {performRedirect()}
+        {SignInForm()}
         <p className="text-white text-center">{JSON.stringify(values)}</p>
     </Base>
   )
