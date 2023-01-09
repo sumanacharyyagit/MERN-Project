@@ -12,6 +12,7 @@ import ManageCategories from './admin/ManageCategories';
 import AddProduct from './admin/AddProduct';
 import ManageProducts from './admin/ManageProducts';
 import Orders from './admin/Orders';
+import UpdateProduct from './admin/UpdateProduct';
 
 const AppRoutes = () => {
   return (
@@ -40,6 +41,9 @@ const AppRoutes = () => {
             </Route>
             <Route path="/" exact element={<AdminRoute />}>
               <Route path="/admin/orders" exact element={<Orders />} />
+            </Route>
+            <Route path="/" exact element={<AdminRoute />}>
+              <Route path="/admin/product/update/:productId" exact element={<UpdateProduct />} />
             </Route>
         </Routes>
     </Router>

@@ -20,8 +20,8 @@ exports.getProductById = (req, res, next, id) => {
 };
 
 exports.createProduct = (req, res) => {
-    let form  = new formidable.IncomingForm();
-    // let form  = formidable({multiples: true });
+    // let form  = new formidable.IncomingForm();
+    let form  = formidable({multiples: true });
     form.keepExtensions = true;
 
     form.parse(req, (err, fields, file) => {
@@ -30,6 +30,7 @@ exports.createProduct = (req, res) => {
                 error: "Cannot upload the Image file",
             });
         }
+
         // Destructure the Fields
         const {name, description, price, category, stock} = fields;
         if(!name || !description || !price || !category || !stock){
@@ -40,8 +41,7 @@ exports.createProduct = (req, res) => {
         }
         
         let product = new Product(fields);
-        // console.log(product);
-        // console.log(file.photo);
+
         // Handle the File
         if(file.photo){
             if(file.photo.size > 3000000){
@@ -52,8 +52,6 @@ exports.createProduct = (req, res) => {
             product.photo.data = fs.readFileSync(file.photo.filepath);
             product.photo.contentType = file.photo.mimetype;
         }
-
-
 
         // Save to the DB
         product.save((err, product) => {
@@ -95,6 +93,7 @@ exports.updateProduct = (req, res) => {
         // Updation the Products
         let product = req.product;
         product = _.extend(product, fields);
+        
         // Handle the File
         if(file.photo){
             if(file.photo.size > 3000000){
@@ -134,7 +133,7 @@ exports.deleteProduct = (req, res) => {
 };
 
 exports.getAllProducts = (req, res) => {
-    // let limit = req.query.limit ? req.query.limit : 8;
+    // let limit = req.query.limit ? parseInt(req.query.limit) : 8;
     let limit = parseInt(req.query.limit) || 8;
     let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
 
@@ -145,6 +144,7 @@ exports.getAllProducts = (req, res) => {
     .limit(limit)
     .exec((err, products) => {
         if(err){
+            console.log(err);
             return res.status(400).json({
                 error: "Failed to Get All Products",
             });

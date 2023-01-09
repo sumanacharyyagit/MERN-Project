@@ -1,7 +1,6 @@
 import {API} from "../../backend";
 
 
-
 export const signUp = (user) => {
     return fetch(`${API}/signup`, {
         method: "POST",
@@ -18,7 +17,6 @@ export const signUp = (user) => {
         console.log(err);
     })
 };
-
 
 export const signIn = (user) => {
     return fetch(`${API}/signin`, {
@@ -44,7 +42,6 @@ export const authenticate = (data, next) => {
     }
 };
 
-
 export const signOut = (next) => {
     if(typeof window !== "undefined") {
         localStorage.removeItem("jwtAuthent");
@@ -60,7 +57,6 @@ export const signOut = (next) => {
         });
     }
 };
-
 
 export const isAuthenticated = () => {
     if(typeof window == "undefined") { 

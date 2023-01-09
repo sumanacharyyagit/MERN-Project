@@ -13,9 +13,11 @@ router.param("productId", getProductById);
 // Actual Routes
 // Create  Route
 router.post("/product/create/:userId", isSignedIn, isAuthenticated, isAdmin, createProduct);
+
 // Read  Routes
 router.get("/product/:productId", getProduct);
 router.get("/product/photo/:productId", photo);
+
 // Update  Route
 router.put("/product/:productId/:userId", isSignedIn, isAuthenticated, isAdmin, updateProduct);
 

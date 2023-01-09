@@ -1,4 +1,3 @@
-const { runInContext } = require("lodash");
 const mongoose = require("mongoose");
 
 const categorySchema = new mongoose.Schema(

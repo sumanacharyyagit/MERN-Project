@@ -154,7 +154,7 @@ const AddProduct = () => {
                 {
                     categories.length > 0 ? (
                         categories.map((category) =>(
-                            <option key={category._id} value={category.name}>{category.name}</option>
+                            <option key={category._id} value={category._id}>{category.name}</option>
                         ))
                     ) : (
                             <option value="">No Option</option>
