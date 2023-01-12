@@ -3,9 +3,6 @@ import Base from '../core/Base';
 import { isAuthenticated } from '../auth/helper';
 import { Link } from 'react-router-dom';
 
-const {user: {name, email, role}} = isAuthenticated();
-
-
 
 const adminLeftSide = () => {
   return(
@@ -35,6 +32,9 @@ const adminLeftSide = () => {
 };
 
 const adminRightSide = () => {
+// const {user: {name, email, role}} = isAuthenticated();
+const {user} = isAuthenticated();
+
   return(
     <div className="card mb-4">
       <h4 className="card-header">Admin Information</h4>
@@ -48,13 +48,13 @@ const adminRightSide = () => {
           <span className="badge bg-success mr-2">
             Name: 
           </span>
-          {name}
+          {user?.name}
         </li>
         <li className="list-group-item">
           <span className="badge bg-success mr-2">
             Email: 
           </span>
-          {email}
+          {user?.email}
         </li>
       </ul>
     </div>
